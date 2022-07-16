@@ -3,14 +3,20 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        {% for task in jobs%}
-        <div class="col-lg-4 mt-3 p-3">
-            <div class="card">
-                <div class="card-title">{{task.job_post_title}}</div>
-                <div class="card-body">{{task.job_description}}</div>
+    {% for job in jobs %}
+        <div class="col-4 mt-3">
+            <div class="card" style="width: 18rem;">
+              <div class="card-header">
+                  {{job.job_post_title}}
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{job.job_type_id}}</li>
+                <li class="list-group-item">{{job.job_description}}</li>
+                <li class="list-group-item">{{job.job_posted_by}}</li>
+              </ul>
             </div>
         </div>
-        {%endfor%}
+    {% endfor %}
     </div>
 </div>
 
