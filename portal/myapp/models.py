@@ -1,3 +1,77 @@
+from django.contrib.auth.models import User
 from django.db import models
 
+
 # Create your models here.
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=25)
+    second_name = models.CharField(max_length=25)
+    email = models.EmailField()
+    contact = models.CharField(max_length=15)
+    user_image = models.ImageField()
+    gender = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.user.username
+
+
+class CompanyProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_description = models.TextField()
+    company_website_url = models.CharField(max_length=500)
+    company_image = models.ImageField()
+
+    def __str__(self):
+        return self.user.username
+
+
+class UserEducatioDetail(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    cert_degree_name = models.CharField(max_length=100)
+    institution_name = models.CharField(max_length=100)
+    completion_date = models.DateField()
+    starting_date = models.DateField()
+
+
+class Skill(models.Model):
+    SkillName = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.SkillName
+
+
+class UserSkillSet(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    skillNameId = models.ForeignKey(Skill, on_delete=models.CASCADE)
+    skill_set_level = models.CharField(max_length=12)
+
+
+class JobType(models.Model):
+    job_type = models.CharField(max_length=25)
+
+    def __str__(self):
+        return self.job_type
+
+
+class JobLocation(models.Model):
+    street_address = models.CharField(max_length=10)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=25)
+    country = models.CharField(max_length=25)
+
+    def __str__(self):
+        return '{}{}'.format(self.city, self.country)
+
+
+class JobPost(models.Model):
+    job_posted_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    job_post_title = models.CharField(max_length=30, null=True)
+    job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE)
+    job_description = models.TextField()
+    job_location_id = models.ForeignKey(JobLocation, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField()
+
+    def __str__(self):
+        return self.job_post_title
