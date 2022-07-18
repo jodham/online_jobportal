@@ -12,21 +12,21 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<p class="font-weight-bold">First Name</p>
-						<h6 class="text-muted">{{user.userprofile.first_name}}</h6>
+						<h6 class="text-muted">{{object.user.userprofile.first_name}}</h6>
 					</div>
 					<div class="col-sm-6">
 						<p class="font-weight-bold">Second Name</p>
-						<h6 class="text-muted">{{user.userprofile.second_name}}</h6>
+						<h6 class="text-muted">{{object.user.userprofile.second_name}}</h6>
 					</div>
-					<h4 class="mt-3">projects</h4>
+
 					<hr class="bg-primary">
 					<div class="col-sm-6">
-						<p class="font-weight-bold">Posts</p>
-						<h6 class="text-muted">blog1</h6>
+						<p class="font-weight-bold">Gender</p>
+						<h6 class="text-muted">{{object.user.userprofile.gender}}</h6>
 					</div>
 					<div class="col-sm-6">
-						<p class="font-weight-bold">Recent</p>
-						<h6 class="text-muted">blog1</h6>
+						<p class="font-weight-bold">contact</p>
+						<h6 class="text-muted">{{object.user.userprofile.contact}}</h6>
 					</div>
 				</div>
 				<hr class="bg-primary">
@@ -36,12 +36,12 @@
 					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
 				</ul>
 		</div>
-    <form method="POST" enctype="multipart/form-data">
+   <form method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		<fieldset class="form-group">
 			<legend class="border-bottom mb-4">Update</legend>
-			{{userprofileupdate.as_p}}
-			{{userdetailform.as_p}}
+			{{userform|crispy}}
+			{{userprofile|crispy}}
 		</fieldset>
 		<div class="form-group">
 			<button class="btn btn-outline-info" type="submit">Update</button>

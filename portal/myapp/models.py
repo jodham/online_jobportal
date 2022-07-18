@@ -18,7 +18,7 @@ class UserProfile(models.Model):
         return f'{self.user.username} userprofile'
 
     def get_absolute_url(self):
-        return reverse('index')
+        return reverse('profile-detail', kwargs={'pk': self.pk})
 
 
 class CompanyProfile(models.Model):

@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.views.generic import UpdateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import UpdateView, DetailView
 
 from .forms import *
 from .models import *
@@ -22,16 +22,19 @@ def jobs_page(request):
 
 def profile(request):
     if request.method == 'POST':
-        userprofileupdate = UserProfileUpdate(request.POST, instance=request.user)
-        userdetailform = UserDetailUpdate(request.POST, request.FILES, instance=request.user.userprofile)
+        userform = UserProfilform(request.POST, instance=request.User)
+        userprofile = Userform(request.POST, request.FILes, instance=request.user.userprofile)
 
-        if userdetailform.is_valid() and userprofileupdate.is_valid():
-            userprofileupdate.save()
-            userdetailform.save()
-            return HttpResponseRedirect('index')
+        if userform.is_valid() and userprofile.is_valid():
+            userform.save()
+            userprofile.save()
+            return redirect('profile')
     else:
-        userprofileupdate = UserProfileUpdate(request.POST, instance=request.user)
-        userdetailform = UserDetailUpdate(request.POST, request.FILES, instance=request.user.userprofile)
-        templatename = 'myapp/userprofile_form.html'
-        context = {'userprofileupdate': userprofileupdate, 'userdetailform': userdetailform}
-        return render(request, templatename, context)
+        userform = UserProfilform(instance=request.user)
+        userprofile = Userform(instance=request.user.userprofile)
+
+    templatename = 'myapp/userprofile_detail.html'
+    context = {'userprofile': userprofile,
+               'userform': userform}
+
+    return render(request, templatename, context)
