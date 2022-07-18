@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+    maximum-scale=1, minimum-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+</head>
+<body>
+{%include 'myapp/assets/navbar.html'%}
+<div class="container">
+{% block content%}
+
+{%endblock content%}
+</div>
+<!---------------------------------------------------scripts----------------->
+<script type="text/javascript" src="{%static 'bootstrap/js/jquery.min.js'%}"></script>
+<script type="type/javascipt" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{%static 'bootstrap/js/jquery.slim.min.js'%}"></script>
+<script type="text/javascript" src="{%static 'bootstrap/js/popper.min.js'%}"></script>
+
+<!---------------------------------------------------scripts----------------->
+</body>
+</html>

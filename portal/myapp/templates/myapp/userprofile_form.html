@@ -1,0 +1,51 @@
+{% extends 'myapp/base.html'%}
+{% load crispy_forms_tags%}
+{%load static%}
+{% block content %}
+<div class="py-5 text-center">
+    <strong>Profile</strong>
+</div>
+<div class="row">
+	<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
+				<h3 class="text-center">Information</h3>
+				<hr class="badge-primary mt-0 w-25">
+				<div class="row">
+					<div class="col-sm-6">
+						<p class="font-weight-bold">First Name</p>
+						<h6 class="text-muted">{{user.userprofile.first_name}}</h6>
+					</div>
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Second Name</p>
+						<h6 class="text-muted">{{user.userprofile.second_name}}</h6>
+					</div>
+					<h4 class="mt-3">projects</h4>
+					<hr class="bg-primary">
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Posts</p>
+						<h6 class="text-muted">blog1</h6>
+					</div>
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Recent</p>
+						<h6 class="text-muted">blog1</h6>
+					</div>
+				</div>
+				<hr class="bg-primary">
+				<ul class="list-unstyled d-flex justify-content-center mt-4">
+					<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+					<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
+					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
+				</ul>
+		</div>
+    <form method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<fieldset class="form-group">
+			<legend class="border-bottom mb-4">Update</legend>
+			{{userprofileupdate.as_p}}
+			{{userdetailform.as_p}}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-outline-info" type="submit">Update</button>
+		</div>
+	</form>
+</div>
+{% endblock content %}
