@@ -11,6 +11,13 @@
 </head>
 <body>
 {%include 'myapp/assets/navbar.html'%}
+{%if messages%}
+    {%for message in messages%}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {%endfor%}
+{%endif%}
 <div class="container">
 {% block content%}
 

@@ -1,24 +1,24 @@
+import uuid
 from django.contrib.auth.models import User
 from django.db import models
-
 
 # Create your models here.
 from django.urls import reverse
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=25)
-    second_name = models.CharField(max_length=25)
-    contact = models.CharField(max_length=15)
-    user_image = models.ImageField()
-    gender = models.CharField(max_length=6)
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=25, null=True)
+    second_name = models.CharField(max_length=25, null=True)
+    contact = models.CharField(max_length=15, null=True)
+    user_image = models.ImageField(null=True)
+    gender = models.CharField(max_length=6, null=True)
 
     def __str__(self):
-        return f'{self.user.username} userprofile'
+        return f'{self.first_name} userprofile'
 
     def get_absolute_url(self):
-        return reverse('profile-detail', kwargs={'pk': self.pk})
+        return reverse('profile-update', kwargs={'pk': self.pk})
 
 
 class CompanyProfile(models.Model):
