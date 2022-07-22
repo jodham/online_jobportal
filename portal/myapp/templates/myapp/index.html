@@ -1,7 +1,72 @@
 {% extends 'myapp/base.html'%}
 {%load static%}
 {% block content %}
- <div class="row">
+ <div class="row d-flex justify-content-center">
+  <div class="col-md-10 mt-3 shadow-lg ">
+
+    <img class="img-fluid homeimage" alt="image" src="{%static 'images/home.png'%}">
+  </div>
  </div>
 
+  <div class="py-5 text-center">
+    <h2>Get hired,Find a solution</h2>
+  </div>
+<div class="row">
+  <div class="col-lg-12 mt-3 p-3 d-flex">
+
+     <div class="col-sm-3">
+     <div class="card">
+      <img class="card-img-top" src="{%static 'images/java.jpeg'%}">
+      <div class="card-body">
+       <h5 class="card-title">Java Programming</h5>
+       <p class="card-text">
+        work on web design projects and get paid in jobs pen,
+        find various web designers to work on your tasks in the taskers pen
+       </p>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-sm-3">
+     <div class="card">
+      <img class="card-img-top" src="{%static 'images/db.png'%}">
+      <div class="card-body">
+       <h5 class="card-title">database design</h5>
+       <p class="card-text">
+        work on web design projects and get paid in jobs pen,
+        find various web designers to work on your tasks in the taskers pen
+       </p>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-sm-3">
+     <div class="card">
+      <img class="card-img-top" src="{%static 'images/network.jpeg'%}">
+      <div class="card-body">
+       <h5 class="card-title">Networking</h5>
+       <p class="card-text">
+        work on web design projects and get paid in jobs pen,
+        find various web designers to work on your tasks in the taskers pen
+       </p>
+      </div>
+     </div>
+    </div>
+
+    <div class="col-sm-3">
+     <div class="card">
+      <img class="card-img-top" src="{%static 'images/home.png'%}">
+      <div class="card-body">
+       <h5 class="card-title">Web design</h5>
+       <p class="card-text">
+        work on web design projects and get paid in jobs pen,
+        find various web designers to work on your tasks in the taskers pen
+       </p>
+      </div>
+     </div>
+    </div>
+
+      
+  </div>
+</div>
 {% endblock content %}

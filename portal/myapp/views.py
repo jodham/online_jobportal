@@ -27,7 +27,7 @@ def jobs_page(request):
 def profile(request):
     if request.method == 'POST':
         userform = UserProfilform(request.POST, instance=request.User)
-        userprofile = Userform(request.POST, request.FILes, instance=request.user.userprofile)
+        userprofile = Userform(request.POST, request.FILES, instance=request.user.userprofile)
 
         if userform.is_valid() and userprofile.is_valid():
             userform.save()
@@ -49,9 +49,9 @@ def register(request):
         form = UserRegistration(request.POST)
         if form.is_valid():
             user = form.save()
-            first_name = form.first_name
-            second_name = form.last_name
-            UserProfile.objects.create(user=user, first_name=first_name, second_name=second_name)
+            first_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            UserProfile.objects.create(user=user, first_name=first_name, second_name=last_name)
             return redirect('login')
     else:
         form = UserRegistration()

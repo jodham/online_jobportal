@@ -15,7 +15,7 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=6, null=True)
 
     def __str__(self):
-        return f'{self.first_name} userprofile'
+        return f'{self.first_name}userprofile'
 
     def get_absolute_url(self):
         return reverse('profile-update', kwargs={'pk': self.pk})
