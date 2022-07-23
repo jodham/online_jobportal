@@ -67,7 +67,6 @@ class ProfileUpdateView(UpdateView):
     fields = ['first_name', 'second_name', 'gender', 'contact']
 
     def form_valid(self, form):
-        # form.instance.user = self.request.user
         return super(ProfileUpdateView, self).form_valid(form)
 
 
@@ -92,7 +91,13 @@ class EducationCreateView(CreateView):
 
 
 # --------------------------------x--------------------Createview-----------x----------->
+# -----------------------------------------------------DetailView----------------------->
+class UserProfileDetailView(DetailView):
+    model = UserProfile
+    template_name = 'myapp/userprofile_detail.html'
 
+
+# --------------------------------x--------------------DetailView-----------x----------->
 def enter(request):
     username = request.POST.get('username')
     password = request.POST.get('password')

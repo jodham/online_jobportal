@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 from django.urls import reverse
+from django.utils import timezone
 
 
 class UserProfile(models.Model):
@@ -18,7 +19,7 @@ class UserProfile(models.Model):
         return f'{self.first_name}userprofile'
 
     def get_absolute_url(self):
-        return reverse('profile-update', kwargs={'pk': self.pk})
+        return reverse('profile-details', kwargs={'id': self.id})
 
 
 class CompanyProfile(models.Model):
@@ -28,11 +29,11 @@ class CompanyProfile(models.Model):
     company_image = models.ImageField()
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
 
 class UserEducatioDetail(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     cert_degree_name = models.CharField(max_length=100)
     institution_name = models.CharField(max_length=100)
     completion_date = models.DateField()
@@ -47,7 +48,7 @@ class Skill(models.Model):
 
 
 class UserSkillSet(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     skillNameId = models.ForeignKey(Skill, on_delete=models.CASCADE)
     skill_set_level = models.CharField(max_length=12)
 
@@ -70,12 +71,12 @@ class JobLocation(models.Model):
 
 
 class JobPost(models.Model):
-    job_posted_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    job_posted_by = models.ForeignKey(User, on_delete=models.CASCADE)
     job_post_title = models.CharField(max_length=30, null=True)
     job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE)
     job_description = models.TextField()
     job_location_id = models.ForeignKey(JobLocation, on_delete=models.CASCADE)
-    date_posted = models.DateTimeField()
+    date_posted = models.DateTimeField(timezone.now)
 
     def __str__(self):
         return self.job_post_title

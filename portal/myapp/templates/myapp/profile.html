@@ -2,14 +2,18 @@
 {% load crispy_forms_tags%}
 {%load static%}
 {% block content %}
-<div class="py-5 text-center">
+<div class="py-5 mt-3 text-center">
     <strong>Profile</strong>
 </div>
-<div class="row">
+<div class="row justify-content-center">
 	<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
 				<h3 class="text-center">Information</h3>
 				<hr class="badge-primary mt-0 w-25">
 				<div class="row">
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Username</p>
+						<h6 class="text-muted">{{request.user.username}}</h6>
+					</div>
 					<div class="col-sm-6">
 						<p class="font-weight-bold">First Name</p>
 						<h6 class="text-muted">{{user.userprofile.first_name}}</h6>
@@ -36,16 +40,7 @@
 					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
 				</ul>
 		</div>
-   <form method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		<fieldset class="form-group">
-			<legend class="border-bottom mb-4">Update</legend>
-			{{userform|crispy}}
-			{{userprofile|crispy}}
-		</fieldset>
-		<div class="form-group">
-			<button class="btn btn-outline-info" type="submit">Update</button>
-		</div>
-	</form>
+
+	<a class="btn btn-secondary" href="{%url 'profile-update' object.id%}">Update profile</a>
 </div>
 {% endblock content %}

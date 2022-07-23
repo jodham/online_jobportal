@@ -2,16 +2,41 @@
 {% load crispy_forms_tags%}
 {%load static%}
 {% block content %}
- <div class="row">
-     <form method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		<fieldset class="form-group">
-			<legend class="border-bottom mb-4">update your details</legend>
-			{{form|crispy}}
-		</fieldset>
-		<div class="form-group">
-			<button class="btn btn-outline-info" type="submit">submit</button>
+<div class="row justify-content-center">
+	<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
+				<h3 class="text-center">Information</h3>
+				<hr class="badge-primary mt-0 w-25">
+				<div class="row">
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Username</p>
+						<h6 class="text-muted">{{object.user.username}}</h6>
+					</div>
+					<div class="col-sm-6">
+						<p class="font-weight-bold">First name</p>
+						<h6 class="text-muted">{{object.first_name}}</h6>
+					</div>
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Second Name</p>
+						<h6 class="text-muted">{{object.second_name}}</h6>
+					</div>
+
+					<hr class="bg-primary">
+					<div class="col-sm-6">
+						<p class="font-weight-bold">Gender</p>
+						<h6 class="text-muted">{{object.gender}}</h6>
+					</div>
+					<div class="col-sm-6">
+						<p class="font-weight-bold">contact</p>
+						<h6 class="text-muted">{{object.contact}}</h6>
+					</div>
+
+				</div>
+				<hr class="bg-primary">
+				<ul class="list-unstyled d-flex justify-content-center mt-4">
+					<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+					<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
+					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
+				</ul>
 		</div>
-	</form>
- </div>
+</div>
 {% endblock content %}
