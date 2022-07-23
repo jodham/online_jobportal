@@ -1,8 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.shortcuts import render, redirect
 from django.views.generic import UpdateView, DetailView, CreateView
 
 from .forms import *
@@ -92,9 +93,14 @@ class EducationCreateView(CreateView):
 
 # --------------------------------x--------------------Createview-----------x----------->
 # -----------------------------------------------------DetailView----------------------->
-class UserProfileDetailView(DetailView):
+class UserProfileDetailView(LoginRequiredMixin, DetailView):
     model = UserProfile
     template_name = 'myapp/userprofile_detail.html'
+
+    @property
+    def func(self):
+        context = {'template_name': self.template_name}
+        return render(context)
 
 
 # --------------------------------x--------------------DetailView-----------x----------->
