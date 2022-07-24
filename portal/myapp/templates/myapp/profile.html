@@ -5,42 +5,46 @@
 <div class="py-5 mt-3 text-center">
     <strong>Profile</strong>
 </div>
-<div class="row justify-content-center">
-	<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
-				<h3 class="text-center">Information</h3>
-				<hr class="badge-primary mt-0 w-25">
-				<div class="row">
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Username</p>
-						<h6 class="text-muted">{{request.user.username}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">First Name</p>
-						<h6 class="text-muted">{{user.userprofile.first_name}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Second Name</p>
-						<h6 class="text-muted">{{user.userprofile.second_name}}</h6>
-					</div>
+{% for x in profile%}
+	{%if x.user == user%}
+		<div class="row justify-content-center">
+			<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
+						<h3 class="text-center">Information</h3>
+						<hr class="badge-primary mt-0 w-25">
+						<div class="row">
+							<div class="col-sm-6">
+								<p class="font-weight-bold">Username</p>
+								<h6 class="text-muted">{{x.user.username}}</h6>
+							</div>
+							<div class="col-sm-6">
+								<p class="font-weight-bold">First Name</p>
+								<h6 class="text-muted">{{x.first_name}}</h6>
+							</div>
+							<div class="col-sm-6">
+								<p class="font-weight-bold">Second Name</p>
+								<h6 class="text-muted">{{x.second_name}}</h6>
+							</div>
 
-					<hr class="bg-primary">
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Gender</p>
-						<h6 class="text-muted">{{user.userprofile.gender}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">contact</p>
-						<h6 class="text-muted">{{user.userprofile.contact}}</h6>
-					</div>
+							<hr class="bg-primary">
+							<div class="col-sm-6">
+								<p class="font-weight-bold">Gender</p>
+								<h6 class="text-muted">{{x.gender}}</h6>
+							</div>
+							<div class="col-sm-6">
+								<p class="font-weight-bold">contact</p>
+								<h6 class="text-muted">{{x.contact}}</h6>
+							</div>
+						</div>
+						<hr class="bg-primary">
+						<ul class="list-unstyled d-flex justify-content-center mt-4">
+							<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
+							<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
+							<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
+						</ul>
 				</div>
-				<hr class="bg-primary">
-				<ul class="list-unstyled d-flex justify-content-center mt-4">
-					<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-					<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
-					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
-				</ul>
-		</div>
 
-	<a class="btn btn-secondary" href="{%url 'profile-update' object.user.id%}">Update profile</a>
-</div>
+			<a class="btn btn-secondary" href="{%url 'profile-details' x.id%}">Update profile</a>
+		</div>
+	{%endif%}
+{%endfor%}
 {% endblock content %}

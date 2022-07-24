@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView, DetailView, CreateView
+from django.views.generic import UpdateView, DetailView, CreateView, ListView
 
 from .forms import *
 from .models import *
@@ -61,7 +61,14 @@ def register(request):
     return render(request, templatename, context)
 
 
-# ----------------------------------------------------Createview---------------------->
+# ----------------------------------------------------ListView---------------------->
+class ProfileListView(ListView):
+    model = UserProfile
+    template_name = 'myapp/profile.html'
+    context_object_name = 'profile'
+
+
+# ----------------------------------------------------ListView---------------------->
 # ----------------------------------------------------UpdateView---------------------->
 class ProfileUpdateView(UpdateView):
     model = UserProfile
