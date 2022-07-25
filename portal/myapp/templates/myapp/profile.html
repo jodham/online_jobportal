@@ -5,7 +5,7 @@
 <div class="py-5 mt-3 text-center">
     <strong>Profile</strong>
 </div>
-{% for x in profile%}
+{%for x in profile%}
 	{%if x.user == user%}
 		<div class="row justify-content-center">
 			<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
@@ -42,9 +42,8 @@
 							<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
 						</ul>
 				</div>
-
-			<a class="btn btn-secondary" href="{%url 'profile-details' x.id%}">Update profile</a>
 		</div>
-	{%endif%}
-{%endfor%}
+		<a class="btn btn-secondary" href="{%url 'profile-details' x.id%}">Update profile</a>
+	{% endif %}
+{% endfor %}
 {% endblock content %}

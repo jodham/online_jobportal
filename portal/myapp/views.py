@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+import time
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView, DetailView, CreateView, ListView
 
@@ -24,27 +24,6 @@ def jobs_page(request):
     return render(request, templatename, context)
 
 
-@login_required
-def profile(request):
-    if request.method == 'POST':
-        userform = UserProfilform(request.POST, instance=request.User)
-        userprofile = Userform(request.POST, request.FILES, instance=request.user.userprofile)
-
-        if userform.is_valid() and userprofile.is_valid():
-            userform.save()
-            userprofile.save()
-            return redirect('profile')
-    else:
-        userform = UserProfilform(instance=request.user)
-        userprofile = Userform(instance=request.user.userprofile)
-
-    templatename = 'myapp/profile.html'
-    context = {'userprofile': userprofile,
-               'userform': userform}
-
-    return render(request, templatename, context)
-
-
 def register(request):
     if request.method == 'POST':
         form = UserRegistration(request.POST)
@@ -62,7 +41,8 @@ def register(request):
 
 
 # ----------------------------------------------------ListView---------------------->
-class ProfileListView(ListView):
+@login_required(login_url='/accounts/login')
+class UserProfileListView(LoginRequiredMixin, ListView):
     model = UserProfile
     template_name = 'myapp/profile.html'
     context_object_name = 'profile'
@@ -70,7 +50,7 @@ class ProfileListView(ListView):
 
 # ----------------------------------------------------ListView---------------------->
 # ----------------------------------------------------UpdateView---------------------->
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = UserProfile
     fields = ['first_name', 'second_name', 'gender', 'contact']
 
@@ -103,11 +83,6 @@ class EducationCreateView(CreateView):
 class UserProfileDetailView(LoginRequiredMixin, DetailView):
     model = UserProfile
     template_name = 'myapp/userprofile_detail.html'
-
-    @property
-    def func(self):
-        context = {'template_name': self.template_name}
-        return render(context)
 
 
 # --------------------------------x--------------------DetailView-----------x----------->

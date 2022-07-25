@@ -39,6 +39,12 @@ class UserEducatioDetail(models.Model):
     completion_date = models.DateField()
     starting_date = models.DateField()
 
+    def __str__(self):
+        return f'{self.cert_degree_name}usereducation'
+
+    def get_absolute_url(self):
+        return reverse('education-details', kwargs={'id': self.id})
+
 
 class Skill(models.Model):
     SkillName = models.CharField(max_length=50)
