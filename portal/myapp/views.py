@@ -41,11 +41,24 @@ def register(request):
 
 
 # ----------------------------------------------------ListView---------------------->
-@login_required(login_url='/accounts/login')
-class UserProfileListView(LoginRequiredMixin, ListView):
-    model = UserProfile
-    template_name = 'myapp/profile.html'
-    context_object_name = 'profile'
+def profile(request):
+    if request.method == 'POST':
+        form = userprofileform(data=request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+        else:
+            templatename = 'myapp/profile.html'
+            form = userprofileform(data=request.POST)
+            error = messages.warning(request, "correct error below!!")
+            user = request.user
+            context = {'user': user, 'error': error}
+            return render(request, templatename, context)
+    else:
+        form = userprofileform(instance=request.user)
+        templatename = 'myapp/profile.html'
+        context = {'form': form}
+        return render(request, templatename, context)
 
 
 # ----------------------------------------------------ListView---------------------->

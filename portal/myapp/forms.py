@@ -19,23 +19,19 @@ class UserRegistration(UserCreationForm):
             self.fields[fieldname].help_text = None
 
 
-class Userform(forms.ModelForm):
+class userprofileform(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ['username', 'email']
-
-
-class UserProfilform(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['first_name', 'second_name', 'contact', 'user_image', 'gender']
+        fields = ['username', 'email', 'first_name', 'last_name']
 
     def __init__(self, *args, **kwargs):
-        super(UserProfilform, self).__init__(*args, **kwargs)
-        for fieldname in ['first_name', 'second_name', 'contact', 'user_image', 'gender']:
+        super(userprofileform, self).__init__(*args, **kwargs)
+        for fieldname in ['username', 'email', 'first_name', 'last_name']:
             self.fields[fieldname].help_text = None
+
+
 
 
 class UserAuthentication(forms.ModelForm):

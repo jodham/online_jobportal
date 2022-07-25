@@ -19,7 +19,7 @@ class UserProfile(models.Model):
         return f'{self.first_name}userprofile'
 
     def get_absolute_url(self):
-        return reverse('profile-details', kwargs={'id': self.id})
+        return reverse('profile-details', kwargs={'pk': self.pk})
 
 
 class CompanyProfile(models.Model):
@@ -43,7 +43,7 @@ class UserEducatioDetail(models.Model):
         return f'{self.cert_degree_name}usereducation'
 
     def get_absolute_url(self):
-        return reverse('education-details', kwargs={'id': self.id})
+        return reverse('education-details', kwargs={'pk': self.pk})
 
 
 class Skill(models.Model):
