@@ -21,17 +21,17 @@
 					</div>
 					<div class="col-sm-6">
 						<p class="font-weight-bold">Second Name</p>
-						<h6 class="text-muted">{{user.second_name}}</h6>
+						<h6 class="text-muted">{{user.last_name}}</h6>
 					</div>
 
 					<hr class="bg-primary">
 					<div class="col-sm-6">
 						<p class="font-weight-bold">Gender</p>
-						<h6 class="text-muted">{{user.gender}}</h6>
+						<h6 class="text-muted">{{user.userprofile.gender}}</h6>
 					</div>
 					<div class="col-sm-6">
 						<p class="font-weight-bold">contact</p>
-						<h6 class="text-muted">{{user.contact}}</h6>
+						<h6 class="text-muted">{{user.userprofile.contact}}</h6>
 					</div>
 				</div>
 				<hr class="bg-primary">
@@ -42,14 +42,42 @@
 				</ul>
 		</div>
 </div>
-<a class="btn btn-secondary" href="#">Update profile</a>
 <div class="row">
+	<div class="col-sm-6 d-flex">
+		<a class="btn btn-secondary mr-3" id="updatebutton" href="#">Update profile</a>
+		<a class="btn btn-secondary" id="#" href="#">Update Education</a>
+	</div>
+</div>
+<div class="row ">
 	<div class="col-md-6">
-		<form action="." method="post" enctype="multipart/form-data">
+		<form class="d-none" id="updateform" action="." method="post" enctype="multipart/form-data">
 			{%csrf_token%}
 			{{form|crispy}}
-			<button type="submit">Update Profile</button>
+			{{userextradata|crispy}}
+			<button class="btn btn-secondary" id="submit" type="submit">Update Profile</button>
+		</form>
+	</div>
+	<div class="col-md-6">
+		<form class="d-none" id="educationupdateform" action="." method="post" enctype="multipart/form-data">
+			{%csrf_token%}
+			{{usereducation|crispy}}
+			<button class="btn btn-secondary" id="educationsubmit" type="submit">Update</button>
 		</form>
 	</div>
 </div>
+<!-------------------------------------------------------javascript--------------------------------->
+<script type="text/javascript">
+var btn = document.getElementById('updatebutton')
+var submitbtn = document.getElementById('submit')
+
+btn.addEventListener('click', function(e){
+	console.log('update button clicked')
+	document.getElementById('updateform').classList.remove('d-none')
+	document.getElementById('updatebutton').classList.add('d-none')
+})
+submitbtn.addEventListener('click', function(e){
+	document.getElementById('updatebutton').classList.remove('d-none')
+})
+</script>
+<!--------------------------------x-----------------------javascript-------------x-------------------->
 {% endblock content %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, UserEducatioDetail
 
 
 class UserRegistration(UserCreationForm):
@@ -32,6 +32,27 @@ class userprofileform(forms.ModelForm):
             self.fields[fieldname].help_text = None
 
 
+class Userdetailsform(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['gender', 'contact', 'user_image']
+
+    def __init__(self, *args, **kwargs):
+        super(Userdetailsform, self).__init__(*args, **kwargs)
+        for fieldname in ['gender', 'contact', 'user_image']:
+            self.fields[fieldname].help_text = None
+
+
+class UserEducation(forms.ModelForm):
+    class Meta:
+        model = UserEducatioDetail
+        exclude = ('user',)
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(UserEducation, self).__init__(*args, **kwargs)
+        for fieldname in ['__all__']:
+            self.fields[fieldname].help_text = None
 
 
 class UserAuthentication(forms.ModelForm):

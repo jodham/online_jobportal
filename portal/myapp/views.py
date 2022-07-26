@@ -44,20 +44,27 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         form = userprofileform(data=request.POST, instance=request.user)
-        if form.is_valid():
+        userextradata = Userdetailsform(request.POST, request.FILES, instance=request.user.userprofile)
+        usereducation = UserEducation(request.POST, instance=request.user.usereducation)
+        if form.is_valid() and userextradata.is_valid() and usereducation.is_valid():
             form.save()
+            userextradata.save()
+            usereducation.save()
             return redirect('profile')
         else:
             templatename = 'myapp/profile.html'
-            form = userprofileform(data=request.POST)
+            userextradata = Userdetailsform(instance=request.user.userprofile)
+            form = userprofileform(instance=request.user)
+            usereducation = UserEducation(instance=request.user.usereducation)
             error = messages.warning(request, "correct error below!!")
-            user = request.user
-            context = {'user': user, 'error': error}
+            context = {'error': error, 'form': form, 'userextradata': userextradata, 'usereducation': usereducation}
             return render(request, templatename, context)
     else:
         form = userprofileform(instance=request.user)
+        userextradata = Userdetailsform(instance=request.user.userprofile)
+        usereducation = UserEducation(instance=request.user.usereducation)
         templatename = 'myapp/profile.html'
-        context = {'form': form}
+        context = {'form': form, 'userextradata': userextradata, 'usereducation': usereducation}
         return render(request, templatename, context)
 
 

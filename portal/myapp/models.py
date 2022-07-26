@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=25, null=True)
     second_name = models.CharField(max_length=25, null=True)
     contact = models.CharField(max_length=15, null=True)
-    user_image = models.ImageField(null=True)
+    user_image = models.ImageField(default='', null=True)
     gender = models.CharField(max_length=6, null=True)
 
     def __str__(self):
