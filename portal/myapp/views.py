@@ -32,6 +32,7 @@ def register(request):
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
             UserProfile.objects.create(user=user, first_name=first_name, second_name=last_name)
+            UserEducatioDetail.objects.create(user=user)
             return redirect('login')
     else:
         form = UserRegistration()
@@ -45,26 +46,29 @@ def profile(request):
     if request.method == 'POST':
         form = userprofileform(data=request.POST, instance=request.user)
         userextradata = Userdetailsform(request.POST, request.FILES, instance=request.user.userprofile)
-        usereducation = UserEducation(request.POST, instance=request.user.usereducation)
-        if form.is_valid() and userextradata.is_valid() and usereducation.is_valid():
+        usereducationcreate = UserEducationCreate(request.POST)
+        if form.is_valid() and userextradata.is_valid() and usereducationcreate.is_valid():
             form.save()
             userextradata.save()
-            usereducation.save()
+            usereducationcreate.save()
             return redirect('profile')
         else:
             templatename = 'myapp/profile.html'
             userextradata = Userdetailsform(instance=request.user.userprofile)
             form = userprofileform(instance=request.user)
-            usereducation = UserEducation(instance=request.user.usereducation)
+            usereducationcreate = UserEducationCreate(request.POST)
             error = messages.warning(request, "correct error below!!")
-            context = {'error': error, 'form': form, 'userextradata': userextradata, 'usereducation': usereducation}
+            context = {'error': error, 'form': form, 'userextradata': userextradata,
+                       'usereducationcreate': usereducationcreate}
             return render(request, templatename, context)
     else:
         form = userprofileform(instance=request.user)
+        usereducationcreate = UserEducationCreate()
         userextradata = Userdetailsform(instance=request.user.userprofile)
-        usereducation = UserEducation(instance=request.user.usereducation)
+
         templatename = 'myapp/profile.html'
-        context = {'form': form, 'userextradata': userextradata, 'usereducation': usereducation}
+        context = {'form': form, 'userextradata': userextradata, 'usereducationcreate': usereducationcreate,
+                   }
         return render(request, templatename, context)
 
 

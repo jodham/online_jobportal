@@ -48,19 +48,19 @@
 		<a class="btn btn-secondary" id="#" href="#">Update Education</a>
 	</div>
 </div>
-<div class="row ">
-	<div class="col-md-6">
-		<form class="d-none" id="updateform" action="." method="post" enctype="multipart/form-data">
+<div class="row justify-content-center">
+	<div class="col-md-6 d-none" id="updateform">
+		<form action="." method="post" enctype="multipart/form-data">
 			{%csrf_token%}
 			{{form|crispy}}
 			{{userextradata|crispy}}
 			<button class="btn btn-secondary" id="submit" type="submit">Update Profile</button>
 		</form>
 	</div>
-	<div class="col-md-6">
-		<form class="d-none" id="educationupdateform" action="." method="post" enctype="multipart/form-data">
+	<div class="col-md-6" id="educationupdateform">
+		<form action="." method="post" enctype="multipart/form-data">
 			{%csrf_token%}
-			{{usereducation|crispy}}
+			{{usereducationcreate|crispy}}
 			<button class="btn btn-secondary" id="educationsubmit" type="submit">Update</button>
 		</form>
 	</div>

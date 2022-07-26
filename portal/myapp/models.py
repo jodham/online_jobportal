@@ -1,4 +1,6 @@
 import uuid
+from datetime import date
+
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -12,7 +14,7 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=25, null=True)
     second_name = models.CharField(max_length=25, null=True)
     contact = models.CharField(max_length=15, null=True)
-    user_image = models.ImageField(default='', null=True)
+    user_image = models.ImageField(default='default.png', upload_to='profilepics', null=True)
     gender = models.CharField(max_length=6, null=True)
 
     def __str__(self):
@@ -34,13 +36,13 @@ class CompanyProfile(models.Model):
 
 class UserEducatioDetail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cert_degree_name = models.CharField(max_length=100)
-    institution_name = models.CharField(max_length=100)
-    completion_date = models.DateField()
-    starting_date = models.DateField()
+    cert_degree_name = models.CharField(max_length=100, null=True)
+    institution_name = models.CharField(max_length=100, null=True)
+    completion_date = models.DateField(default=timezone.now)
+    starting_date = models.DateField(default=timezone.now)
 
     def __str__(self):
-        return f'{self.cert_degree_name}usereducation'
+        return f'{self.cert_degree_name}usereducationdetail'
 
     def get_absolute_url(self):
         return reverse('education-details', kwargs={'pk': self.pk})

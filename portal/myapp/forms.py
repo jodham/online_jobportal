@@ -55,6 +55,17 @@ class UserEducation(forms.ModelForm):
             self.fields[fieldname].help_text = None
 
 
+class UserEducationCreate(forms.ModelForm):
+    class Meta:
+        model = UserEducatioDetail
+        fields = ['cert_degree_name', 'institution_name', 'completion_date', 'starting_date']
+
+    def __init__(self, *args, **kwargs):
+        super(UserEducationCreate, self).__init__(*args, **kwargs)
+        for fieldname in ['cert_degree_name', 'institution_name', 'completion_date', 'starting_date']:
+            self.fields[fieldname].help_text = None
+
+
 class UserAuthentication(forms.ModelForm):
     class Meta:
         model = User
