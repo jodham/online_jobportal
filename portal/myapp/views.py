@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-import time
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView, DetailView, CreateView, ListView
 

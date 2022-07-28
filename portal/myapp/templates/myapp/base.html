@@ -5,9 +5,13 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
-    <meta name="viewport" content="width=device-width, initial-scale=1,
-    maximum-scale=1, minimum-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="{%static 'bootstrap/js/jquery.min.js'%}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{%static 'bootstrap/js/popper.min.js'%}"></script>
+    <!--<script type="type/javascipt" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>-->
+    <!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </head>
 <body>
 {%include 'myapp/assets/navbar.html'%}
@@ -59,12 +63,11 @@
       </div>
     </div>
 </div>
-<!---------------------------------------------------scripts----------------->
-<script type="text/javascript" src="{%static 'bootstrap/js/jquery.min.js'%}"></script>
-<script type="type/javascipt" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!---------------------------------------------------scripts-----------------
 <script type="text/javascript" src="{%static 'bootstrap/js/jquery.slim.min.js'%}"></script>
-<script type="text/javascript" src="{%static 'bootstrap/js/popper.min.js'%}"></script>
 
-<!---------------------------------------------------scripts----------------->
+
+
+---------------------------------------------------scripts----------------->
 </body>
 </html>
