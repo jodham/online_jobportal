@@ -48,23 +48,23 @@
       <li class="nav-item">
         <a class="nav-link" href="{%url 'jobs'%}">jobs</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    </ul>
+      <div class="form-inline ml-auto my-2 my-lg-0">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Dropdown link
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <div class="form-inline ml-auto my-2 my-lg-0">
+        <div class="dropdown-menu" id="dropdownmenu">
+            <div class="ml-auto my-2 my-lg-0 d-block">
             {%if user.is_authenticated%}
-               <a href="{%url 'profile'%}" class="btn btn-outline-info">Profile</a>
-               <a href="{%url 'logout'%}" class="btn btn-outline-info">Logout</a>
+               <a href="{%url 'profile'%}" class="">Profile</a>
+               <a href="{%url 'logout'%}" class="">Logout</a>
             {%else%}
-              <a href="{%url 'login'%}" class="btn btn-outline-info">Login</a>
-              <a href="{%url 'register'%}" class="btn btn-outline-info">Register</a>
+              <a href="{%url 'login'%}" class="">Login</a>
+              <a href="{%url 'register'%}" class="">Register</a>
             {%endif%}
            </div>
         </div>
-      </li>
-    </ul>
+      </div>
   </div>
 </nav>
 <script type="text/javascript">
@@ -79,5 +79,16 @@
       else{
         navbardrop.classList.add('collapse')
       }
+  })
+
+  var navbardropdownmenu = document.getElementById('navbarDropdownMenu')
+  var menudropdown = document.getElementById('dropdownmenu')
+
+  navbardropdownmenu.addEventListener('click', function(e){
+    if(menudropdown.classList.contains('dropdown-menu')){
+      menudropdown.classList.remove('dropdown-menu')
+    }else{
+      menudropdown.classList.add('dropdown-menu')
+    }
   })
 </script>
