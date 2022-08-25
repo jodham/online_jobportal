@@ -42,6 +42,8 @@ def register(request):
 
 # ----------------------------------------------------ListView---------------------->
 def profile(request):
+    educationlist = UserEducatioDetail.objects.all()
+
     if request.method == 'POST':
         form = userprofileform(data=request.POST, instance=request.user)
         userextradata = Userdetailsform(request.POST, request.FILES, instance=request.user.userprofile)
@@ -67,48 +69,10 @@ def profile(request):
 
         templatename = 'myapp/profile.html'
         context = {'form': form, 'userextradata': userextradata, 'usereducationcreate': usereducationcreate,
-                   }
+                   "educationlist": educationlist}
         return render(request, templatename, context)
 
 
-# ----------------------------------------------------ListView---------------------->
-# ----------------------------------------------------UpdateView---------------------->
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    model = UserProfile
-    fields = ['first_name', 'second_name', 'gender', 'contact']
-
-    def form_valid(self, form):
-        return super(ProfileUpdateView, self).form_valid(form)
-
-
-# ----------------------------------------------------UpdateView---------------------->
-# ----------------------------------------------------Createview---------------------->
-class ProfileCreateView(CreateView):
-    model = UserProfile
-    fields = ['first_name', 'second_name', 'gender', 'contact']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
-class EducationCreateView(CreateView):
-    model = UserEducatioDetail
-    fields = ['cert_degree_name', 'institution_name', 'completion_date', 'starting_date']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
-
-# --------------------------------x--------------------Createview-----------x----------->
-# -----------------------------------------------------DetailView----------------------->
-class UserProfileDetailView(LoginRequiredMixin, DetailView):
-    model = UserProfile
-    template_name = 'myapp/userprofile_detail.html'
-
-
-# --------------------------------x--------------------DetailView-----------x----------->
 def enter(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -124,3 +88,36 @@ def enter(request):
 def log_out(request):
     logout(request)
     return redirect('login')
+
+
+# ----------------------------------------------------ListView------------------------>
+class JobListView(ListView):
+    model = JobPost
+    template_name = 'myapp/jobs.html'
+    context_object_name = 'jobs'
+    ordering = ['-date_posted']
+
+
+# -----------------------x-----------------------------ListView------------x---------->
+# ----------------------------------------------------UpdateView---------------------->
+
+# ----------------------------------------------------UpdateView---------------------->
+# ----------------------------------------------------Createview---------------------->
+class JobPostCreate(CreateView):
+    model = JobPost
+    fields = ['job_post_title', 'job_type_id', 'job_description', 'job_location_id']
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.user = user
+        return super(JobPostCreate, self).form_valid(form)
+
+    def test_func(self):
+        mypost = self.get_object()
+        if self.request.user == mypost.user:
+            return True
+        return False
+# --------------------------------x--------------------Createview-----------x----------->
+# -----------------------------------------------------DetailView----------------------->
+
+# --------------------------------x--------------------DetailView-----------x----------->

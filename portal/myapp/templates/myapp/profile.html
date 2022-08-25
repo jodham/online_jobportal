@@ -2,52 +2,80 @@
 {% load crispy_forms_tags%}
 {%load static%}
 {% block content %}
-<div class="py-5 mt-3 text-center">
+<div class="py-3 mt-3 text-center">
     <strong>Profile</strong>
 </div>
 
 <div class="row justify-content-center">
-	<div class="col-lg-6 bg-white mt-3 pt-5 rounded-right">
-				<h3 class="text-center">Information</h3>
-				<hr class="badge-primary mt-0 w-25">
-				<div class="row">
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Username</p>
-						<h6 class="text-muted">{{user.username}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">First Name</p>
-						<h6 class="text-muted">{{user.first_name}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Second Name</p>
-						<h6 class="text-muted">{{user.last_name}}</h6>
-					</div>
-
-					<hr class="bg-primary">
-					<div class="col-sm-6">
-						<p class="font-weight-bold">Gender</p>
-						<h6 class="text-muted">{{user.userprofile.gender}}</h6>
-					</div>
-					<div class="col-sm-6">
-						<p class="font-weight-bold">contact</p>
-						<h6 class="text-muted">{{user.userprofile.contact}}</h6>
-					</div>
+	<div class="col-lg-6 bg-white pt-5 rounded-right">
+			<h3 class="text-center">Personal Information</h3>
+			<hr class="bg-primary mt-0">
+			<div class="row">
+				<div class="col-sm-6">
+					<p class="font-weight-bold">Username</p>
+					<h6 class="text-muted">{{user.username}}</h6>
 				</div>
+				<div class="col-sm-6">
+					<p class="font-weight-bold">First Name</p>
+					<h6 class="text-muted">{{user.first_name}}</h6>
+				</div>
+				<div class="col-sm-6">
+					<p class="font-weight-bold">Second Name</p>
+					<h6 class="text-muted">{{user.last_name}}</h6>
+				</div>
+
 				<hr class="bg-primary">
-				<ul class="list-unstyled d-flex justify-content-center mt-4">
-					<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-					<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>
-					<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>
-				</ul>
+				<div class="col-sm-6">
+					<p class="font-weight-bold">Gender</p>
+					<h6 class="text-muted">{{user.userprofile.gender}}</h6>
+				</div>
+				<div class="col-sm-6">
+					<p class="font-weight-bold">contact</p>
+					<h6 class="text-muted">{{user.userprofile.contact}}</h6>
+				</div>
+			</div>
+		<h3 class="text-center py-3">Education Information</h3>
+		<hr class="bg-primary mt-0">
+		{%for item in educationlist%}
+		{%if item.user == user%}
+
+		<div class="row">
+			<div class="col-sm-6">
+				<p class="font-weight-bold">Degree Name</p>
+				<h6 class="text-muted">{{item.cert_degree_name}}</h6>
+			</div>
+			<div class="col-sm-6">
+				<p class="font-weight-bold">Institution Name</p>
+				<h6 class="text-muted">{{item.institution_name}}</h6>
+			</div>
+			<div class="col-sm-6">
+				<p class="font-weight-bold">Date Completed</p>
+				<h6 class="text-muted">{{item.completion_date}}</h6>
+			</div>
+
+			<hr class="bg-primary">
+			<div class="col-sm-6">
+				<p class="font-weight-bold">Date Started</p>
+				<h6 class="text-muted">{{item.starting_date}}</h6>
+			</div>
 		</div>
+		{%endif%}
+		{%endfor%}
+<!--			<hr class="bg-primary">-->
+<!--			<ul class="list-unstyled d-flex justify-content-center mt-4">-->
+<!--				<li><a href="#"><i class="fab fa-facebook-square"></i></a></li>-->
+<!--				<li><a href="#"><i class="fab fa-youtube px-3 h4 text-info"></i></a></li>-->
+<!--				<li><a href="#"><i class="fab fa-twitter px-3 h4 text-info"></i></a></li>-->
+<!--			</ul>-->
+	</div>
 </div>
 <div class="row">
 	<div class="col-sm-6 d-flex">
 		<a class="btn btn-secondary mr-3" id="updatebutton" href="#">Update profile</a>
-		<a class="btn btn-secondary" id="#" href="#">Update Education</a>
+		<a class="btn btn-secondary" id="addEducationdetails" href="#">Add Education</a>
 	</div>
 </div>
+
 <div class="row justify-content-center">
 	<div class="col-md-6 d-none" id="updateform">
 		<form action="." method="post" enctype="multipart/form-data">
@@ -57,7 +85,7 @@
 			<button class="btn btn-secondary" id="submit" type="submit">Update Profile</button>
 		</form>
 	</div>
-	<div class="col-md-6" id="educationupdateform">
+	<div class="col-md-6 d-none" id="educationcreateform">
 		<form action="." method="post" enctype="multipart/form-data">
 			{%csrf_token%}
 			{{usereducationcreate|crispy}}
@@ -69,15 +97,30 @@
 <script type="text/javascript">
 var btn = document.getElementById('updatebutton')
 var submitbtn = document.getElementById('submit')
+var educationcreate = document.getElementById('addEducationdetails')
 
 btn.addEventListener('click', function(e){
 	console.log('update button clicked')
 	document.getElementById('updateform').classList.remove('d-none')
-	document.getElementById('updatebutton').classList.add('d-none')
+	btn.classList.add('bg-primary')
+	educationcreate.classList.remove('bg-primary')
+	// document.getElementById('updatebutton').classList.add('d-none')
+	document.getElementById('educationcreateform').classList.add('d-none')
 })
 submitbtn.addEventListener('click', function(e){
 	document.getElementById('updatebutton').classList.remove('d-none')
 })
+educationcreate.addEventListener('click', function(e){
+	document.getElementById('educationcreateform').classList.remove('d-none')
+	educationcreate.classList.add('bg-primary')
+	btn.classList.remove('bg-primary')
+	document.getElementById('updateform').classList.add('d-none')
+})
+
+// if(document.getElementById('updateform', 'educationcreateform').contains('d-none'){
+// 	btn.classList.add('bg-primary')
+// 	educationcreate.classList.add('bg-primary')
+// })
 </script>
 <!--------------------------------x-----------------------javascript-------------x-------------------->
 {% endblock content %}

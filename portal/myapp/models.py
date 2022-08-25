@@ -75,7 +75,7 @@ class JobLocation(models.Model):
     country = models.CharField(max_length=25)
 
     def __str__(self):
-        return '{}{}'.format(self.city, self.country)
+        return '{}, {}'.format(self.city, self.country)
 
 
 class JobPost(models.Model):
