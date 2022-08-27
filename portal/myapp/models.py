@@ -48,17 +48,34 @@ class UserEducatioDetail(models.Model):
         return reverse('education-details', kwargs={'pk': self.pk})
 
 
+class SkillLevel(models.Model):
+    level = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.level
+
+
+class skillExperience(models.Model):
+    period = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.period
+
+
 class Skill(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    field = models.CharField(max_length=50)
+    level = models.ForeignKey(SkillLevel, on_delete=models.CASCADE)
+    experience = models.ForeignKey(skillExperience, on_delete=models.CASCADE)
+    dateposted = models.DateField(default=timezone.now)
+    fieldImage = models.ImageField(default='default.png', upload_to='media/skillimage')
     SkillName = models.CharField(max_length=50)
 
     def __str__(self):
         return self.SkillName
 
-
-class UserSkillSet(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    skillNameId = models.ForeignKey(Skill, on_delete=models.CASCADE)
-    skill_set_level = models.CharField(max_length=12)
+    def get_absolute_url(self):
+        return reverse('skill-detail', kwargs={'pk': self.pk})
 
 
 class JobType(models.Model):
@@ -84,7 +101,10 @@ class JobPost(models.Model):
     job_type_id = models.ForeignKey(JobType, on_delete=models.CASCADE)
     job_description = models.TextField()
     job_location_id = models.ForeignKey(JobLocation, on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(timezone.now)
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.job_post_title
+
+    def get_absolute_url(self):
+        return reverse('job-detail', kwargs={'pk': self.pk})

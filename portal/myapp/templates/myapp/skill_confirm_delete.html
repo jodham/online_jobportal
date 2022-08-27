@@ -1,0 +1,18 @@
+{%extends 'myapp/base.html'%}
+{% block content %}
+
+  <div class="card mt-4 shadow-lg p-3">
+  	<form method="POST">
+  		{% csrf_token %}
+  		<fieldset class="from-group">
+  			<legend class="border-bottom mb-4">Delete this Skill</legend>
+            <h5>Are you sure to delete  <span class="h2">{{object.SkillName}}</span> Skill</h5>
+  		</fieldset>
+  		<div class="from-group">
+  			<button class="btn btn-outline-danger" type="submit">Yes, delete</button>
+            <a class="btn btn-outline-secondary" href="{%url 'skill-detail' object.id%}">Cancel</a>
+  		</div>
+  	</form>
+  </div>
+
+{% endblock content %}>

@@ -1,0 +1,37 @@
+{% extends 'myapp/base.html'%}
+{%load static%}
+{% block content %}
+<div class="card mt-5 p-2 shadow-lg">
+    <div class="row">
+        <div class="col-md-3 p-3 text-center">
+            <img src="{%static 'media/default.png'%}" alt='skill-image' class="image-fluid">
+        </div>
+        <div class="col-md-6">
+            <div class="card-title text-center"><label class="text-muted">Skill:</label> {{object.SkillName}}</div>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-lg-6 ">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><label class="text-muted">field:</label> {{object.field}}</li>
+                        <li class="list-group-item"><label class="text-muted">experience:</label> {{object.experience}}</li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-6">
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><label class="text-muted">Level:</label> {{object.level}}</li>
+                        <li class="list-group-item"><label class="text-muted">date posted:</label> {{object.dateposted}}</li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+            {% if object.author == user%}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{%url 'skill-update' object.id%}">Update</a>
+                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete</a>
+                </div>
+            {% endif%}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

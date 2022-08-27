@@ -1,0 +1,18 @@
+{%extends 'myapp/base.html'%}
+{% load crispy_forms_tags%}
+{% block content %}
+<div class="container">
+  <div class="card mt-5 shadow-lg p-3 ml-4">
+  	<form method="POST">
+  		{% csrf_token %}
+  		<fieldset class="from-group">
+  			<legend class="border-bottom mb-4">Add SKill</legend>
+  				{{form.as_p}}
+  		</fieldset>
+  		<div class="form-group">
+  			<button class="btn btn-outline-info" type="submit">Submit</button>
+  		</div>
+  	</form>
+  </div>
+</div>
+{% endblock content %}
