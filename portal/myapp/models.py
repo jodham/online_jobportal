@@ -68,7 +68,7 @@ class Skill(models.Model):
     level = models.ForeignKey(SkillLevel, on_delete=models.CASCADE)
     experience = models.ForeignKey(skillExperience, on_delete=models.CASCADE)
     dateposted = models.DateField(default=timezone.now)
-    fieldImage = models.ImageField(default='default.png', upload_to='media/skillimage')
+    fieldImage = models.ImageField(default='default.png')
     SkillName = models.CharField(max_length=50)
 
     def __str__(self):

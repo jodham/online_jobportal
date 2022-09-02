@@ -1,8 +1,10 @@
 {% extends 'myapp/base.html'%}
 {%load static%}
 {% block content %}
-<div class="float-right mt-3">
-    <a class="btn btn-primary ml-3" href="{%url 'new-skill'%}">Add New Skill</a>
+<div class="row">
+    <div class="float-right mt-3 py-3 center-text">
+        <a class="btn btn-primary " href="{%url 'new-skill'%}">Add New Skill</a>
+    </div>
 </div>
 {%for x in skill%}
 {%if x.author == user%}

@@ -11,21 +11,55 @@
     </div>
 </div>
 <div class="row">
-{% for job in jobs %}
-    <div class="col-4 mt-3">
-        <div class="card" style="width: 18rem;">
-          <div class="card-header">
-              {{job.job_post_title}}
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{job.job_type_id}}</li>
-            <li class="list-group-item">{{job.job_description}}</li>
-            <li class="list-group-item">{{job.job_posted_by}}</li>
-          </ul>
+<!--{% for job in jobs %}-->
+<!--    <div class="col-4 mt-3">-->
+<!--        <div class="card" style="width: 18rem;">-->
+<!--          <div class="card-header">-->
+<!--              {{job.job_post_title}}-->
+<!--          </div>-->
+<!--          <ul class="list-group list-group-flush">-->
+<!--            <li class="list-group-item">{{job.job_type_id}}</li>-->
+<!--            <li class="list-group-item">{{job.job_description}}</li>-->
+<!--            <li class="list-group-item">{{job.job_posted_by}}</li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--{% endfor %}-->
+    {%for x in jobs%}
+    {%if job_posted_by == request.user%}
+    <div class="col-md-8 mt-4 shadow-lg p-2">
+        <div class="card">
+            <div class="card-header">
+                <img class="thumbnail image-fluid" src="{%static 'media/default.png'%}"> date posted
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{%static 'media/default.png'%}" class="image-fluid" alt="jobimage">
+                    </div>
+                    <div class="col-md-8 ml-4">
+                        I need 2 web developers to help in designing
+                        an e-commerce website, the expected developers
+                        should have goog knowledge of the latest
+                        web technologies.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-{% endfor %}
-</div>
-
-
+    </div>
+{%else%}
+<div class="row py-5">
+    <div class="col-lg-6">
+        <div class="card-header">
+            <label class="h3">Sorry!!</label>
+        </div>
+        <div class="card-body">
+            <p class="h4 text-info">No jobs at the moment come back later!!</p>
+            <a class="btn btn-success" href="{%url 'newjob'%}">Post a job</a>
+        </div>
+    </div>
+</div><br>
+{%endif%}
+{%endfor%}
 {% endblock content %}
