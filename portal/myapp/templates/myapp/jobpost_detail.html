@@ -1,0 +1,23 @@
+{% extends 'myapp/base.html'%}
+{%load static%}
+{% block content %}
+<div class="col-md-8 mt-4 shadow-lg p-2">
+        <div class="card border-primary rounded">
+            <div class="card-header">
+                <img class="thumbnail image-fluid" src="" alt="img"> <label class="h3">No Jobs Yet</label>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="" class="image-fluid" alt="jobimage">
+                    </div>
+                    <div class="col-md-8 ml-4">
+                       <p class="h4">Post a new job</p>
+                        <a class="btn btn-success" href="{%url 'newjob'%}">Post a Job</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock content%}
